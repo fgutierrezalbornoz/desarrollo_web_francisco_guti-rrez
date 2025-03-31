@@ -10,7 +10,7 @@
         </style>
     </head>
     <body>
-        <table class="listado-actividades" border="1" onclick="window.location='./info-actividad.html'">
+        <table class="listado-actividades" id="listado-actividades"><!-- onclick="window.location='./info-actividad.html'">-->
             <thead>
                 <tr>
                     <th>Inicio</th>
@@ -23,81 +23,85 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th>
-                        2025-03-28 <br> 
-                        12:00
-                    </th>
-                    <th>
-                        2025-03-28 <br> 
-                        14:00
-                    </th>
-                    <th>Santiago</th>
-                    <th>Beauchef 850, terraza</th>
-                    <th>Escuela de Boxeo</th>
-                    <th>CEI Uchile</th>
-                    <th>sin foto</th>
-                </tr>
-                <tr>
-                    <th>
-                        2025-03-29 <br> 
-                        19:00
-                    </th>
-                    <th>
-                        2025-03-28 <br> 
-                        20:00
-                    </th>
-                    <th>Nuñoa</th>
-                    <th>Plaza</th>
-                    <th>Cómo deshidratar fruta</th>
-                    <th>I. Municipalidad de Ñuñoa</th>
-                    <th>sin foto</th>
-                </tr>
-                <tr>
-                    <th>
-                        2025-03-30 <br> 
-                        19:00
-                    </th>
-                    <th>
-                        -
-                    </th>
-                    <th>Santiago</th>
-                    <th>Parque O'higgins</th>
-                    <th>Música urbana</th>
-                    <th>Ministerio de Cultura</th>
-                    <th>sin foto</th>
-                </tr>
-                <tr>
-                    <th>
-                        2025-03-28 <br> 
-                        12:00
-                    </th>
-                    <th>
-                        2025-03-30 <br> 
-                        21:00
-                    </th>
-                    <th>La Reina</th>
-                    <th>Parque Alberto Hurtado</th>
-                    <th>Gastronomía</th>
-                    <th>Niam Chile</th>
-                    <th>sin foto</th>
-                </tr>
-                <tr>
-                    <th>
-                        2024-12-01 <br> 
-                        12:00
-                    </th>
-                    <th>
-                        -
-                    </th>
-                    <th>Santiago</th>
-                    <th>Alameda</th>
-                    <th>Desfile personajes Disney</th>
-                    <th>París - Cencosud</th>
-                    <th>sin foto</th>
-                </tr>
             </tbody>
         </table>
+    
+        <script>
+            const actividades = [
+                {
+                "inicio": "2025-03-28 12:00",
+                "termino": "2025-03-28 14:00",
+                "comuna": "Santiago",
+                "sector": "Beauchef 850, terraza",
+                "tema": "Escuela de Boxeo",
+                "nombreOrganizador": "CEI Uchile",
+                "totalFotos": "sin foto"
+                },
+                {
+                "inicio": "2025-03-29 19:00",
+                "termino": "2025-03-28 20:00",
+                "comuna": "Ñuñoa",
+                "sector": "Plaza",
+                "tema": "Cómo deshidratar fruta",
+                "nombreOrganizador": "I. Municipalidad de Ñuñoa",
+                "totalFotos": "sin foto"
+                },
+                {
+                "inicio": "2025-03-30 19:00",
+                "termino": "-",
+                "comuna": "Santiago",
+                "sector": "Parque O'higgins",
+                "tema": "Música urbana",
+                "nombreOrganizador": "Ministerio de Cultura",
+                "totalFotos": "sin foto"
+                },
+                {
+                "inicio": "2025-03-28 12:00",
+                "termino": "2025-03-30 21:00",
+                "comuna": "La Reina",
+                "sector": "Parque Alberto Hurtado",
+                "tema": "Gastronomía",
+                "nombreOrganizador": "Niam Chile",
+                "totalFotos": "sin foto"
+                },
+                {
+                "inicio": "2024-12-01 12:00",
+                "termino": "-",
+                "comuna": "Santiago",
+                "sector": "Alameda",
+                "tema": "Desfile personajes Disney",
+                "nombreOrganizador": "París - Cencosud",
+                "totalFotos": "sin foto"
+                }
+            ];
+            const tablaActividades = document.querySelector("#listado-actividades tbody");
+            const guardaInfoActividad = (actividad) => {
+                localStorage.setItem('actividad', JSON.stringify(actividad));
+                window.location='./info-actividad.html';
+            }
+            const cargaTablaActividades = () => {
+                for (let i = 0; i < actividades.length; i++) {
+                    const actividad = actividades[i];
+                    const fila = document.createElement("tr");
+
+                    fila.innerHTML = `
+                        <td>${actividad.inicio}</td>
+                        <td>${actividad.termino}</td>
+                        <td>${actividad.comuna}</td>
+                        <td>${actividad.sector}</td>
+                        <td>${actividad.tema}</td>
+                        <td>${actividad.nombreOrganizador}</td>
+                        <td>${actividad.totalFotos}</td>
+                    `;
+                    fila.addEventListener('click',() => guardaInfoActividad(actividad));
+                    tablaActividades.appendChild(fila);
+                }
+            }
+            window.onload = () => {
+                cargaTablaActividades();
+            }
+        </script>
     </body>
 </html>
+
 

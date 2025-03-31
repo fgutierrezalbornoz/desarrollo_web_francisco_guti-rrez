@@ -1,22 +1,42 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-
+        <title> Tarea 1 - Información Actividad </title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     </head>
     <body>
         <div>
-            <p>Inicio:</p>
-            <p>Término:</p>
-            <p>Comuna:</p>
-            <p>Sector:</p>
-            <p>Tema:</p>
-            <p>Nombre Organizador:</p>
-            <p>Fotos:</p>
+            <p>Inicio: <span id="info-inicio"></span></p>
+            <p>Término: <span id="info-termino"></span></p>
+            <p>Comuna: <span id="info-comuna"></span></p>
+            <p>Sector: <span id="info-sector"></span></p>
+            <p>Tema: <span id="info-tema"></span></p>
+            <p>Nombre Organizador: <span id="info-organizador"></span></p>
+            <p>Fotos: <span id="info-fotos"></span></p>
         </div>
         <div>
             <button onclick="window.location='./listado-actividades.html'">Volver al listado de actividades</button>
             <button onclick="window.location='./index.html'">Volver a la portada</button>
         </div>
-        
+        <script>
+            const cargaInfo = () => {
+                const actividad = JSON.parse(localStorage.getItem('actividad'));
+    
+                document.getElementById('info-inicio').innerText = actividad.inicio;
+                document.getElementById('info-termino').innerText = actividad.termino;
+                document.getElementById('info-comuna').innerText = actividad.comuna;
+                document.getElementById('info-sector').innerText = actividad.sector;
+                document.getElementById('info-tema').innerText = actividad.tema;
+                document.getElementById('info-tema').innerText = actividad.tema;
+                document.getElementById('info-organizador').innerText = actividad.nombreOrganizador;
+                document.getElementById('info-fotos').innerText = actividad.totalFotos;
+                localStorage.removeItem("actividad");
+            }
+            window.onload = () => {
+                cargaInfo();
+            };
+            
+    
+        </script>
     </body>
 </html>

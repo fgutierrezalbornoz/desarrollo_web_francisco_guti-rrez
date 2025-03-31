@@ -10,13 +10,13 @@
         <form>
             <section>
                 <h3>Lugar</h3>
-                <p>Región
-                    <select name="region" id="region-select" onChange="filtraComunas()">
+                <label for="region">Región</label>
+                    <select name="region" id="region-select" onChange="filtraComunas()" required>
                         <option value="">--Escoge una región--</option>
                     </select>
-                    </p>
+                
                 <p>Comuna
-                    <select name="comuna" id="comuna-select">
+                    <select name="comuna" id="comuna-select" required>
                         <option value="">--Escoge una comuna--</option>
                     </select>
                     </p>
@@ -26,9 +26,9 @@
             <hr>
             <section>
                 <h3>Organizador</h3>
-                <p>Nombre <input name="nombre" type="text"></p>
+                <p>Nombre <input name="nombre" type="text" required></p>
 
-                <p>Email <input name="email" type="email"></p>
+                <p>Email <input name="email" type="email" required></p>
                 <p>Nro Celular <input name="celular" type="tel"></p>
                 <p>Contactar por 
                     <select>
@@ -46,13 +46,12 @@
             <hr>
             <section>
                 <h3>Actividad</h3>
-                <p>Día-hora inicio <input type="datetime-local"></p>
+                <p>Día-hora inicio <input type="datetime-local" required></p>
                 <p>Día-hora término <input type="datetime-local"></p>
-                <p>Descripción
-                    <textarea cols="50" rows="10"></textarea>
-                </p>
+                <label for="descripcion">Descripción</label>
+                <textarea name="descripcion" cols="50" rows="10"></textarea>
                 <p>Tema
-                    <select>
+                    <select name="tema" required>
                         <option value="">--Seleccione tema--</option>
                         <option value="música"> Música</option>
                         <option value="deporte">Deporte</option>
@@ -66,7 +65,7 @@
                         <option value="otra">Otra</option>
                     </select>
                 </p>
-                <p>Foto <input type="file"></p>
+                <p>Foto <input type="file" name="foto" required></p>
             </section>
 
             <button> Agregar esta actividad </button>
