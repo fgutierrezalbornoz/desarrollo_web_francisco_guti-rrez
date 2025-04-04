@@ -7,69 +7,131 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     </head>
     <body>
-        <form>
-            <section>
-                <h3>Lugar</h3>
-                <label for="region">Región</label>
-                    <select name="region" id="region-select" onChange="filtraComunas()" required>
-                        <option value="">--Escoge una región--</option>
-                    </select>
+        <div class="main-container">
+            <div id="val-box" hidden>
+                <h2 id="val-msg"></h2>
+                <ul id="val-list"></ul>
+            </div>
+            <form id="form-actividad">
+                <section>
+                    <h3>Lugar</h3>
+                    <label for="region">Región</label>
+                        <select name="region" id="region-select" onChange="filtraComunas()" required>
+                            <option value="">--Escoge una región--</option>
+                        </select>
+                    
+                    <p>Comuna
+                        <select name="comuna" id="comuna-select" required>
+                            <option value="">--Escoge una comuna--</option>
+                        </select>
+                        </p>
+                    <p>Sector <input name="sector" type="text" size="100"></p>
+                </section>
                 
-                <p>Comuna
-                    <select name="comuna" id="comuna-select" required>
-                        <option value="">--Escoge una comuna--</option>
-                    </select>
+                <hr>
+                <section>
+                    <h3>Organizador</h3>
+                    <p>Nombre <input name="nombre" type="text" required></p>
+
+                    <p>Email <input name="email" placeholder="ejemplo@ejemplo.com" type="email" required></p>
+                    <p>Nro Celular <input name="celular" placeholder="+569.87654321" type="tel"></p>
+                    <label for="contacto">Contactar por</label>
+                    <div name="contacto" id="contacto">
+                        <input class="opciones-contacto" type="checkbox" name="whatsapp" onclick="revisaCheck(this);"> Whatsapp
+                        <input id="whatsapp-id" type="text" name="whatsapp" style="display:none;"> <br>
+                        <input class="opciones-contacto" type="checkbox" name="instagram" onclick="revisaCheck(this);"> Instagram
+                        <input id="instagram-id" type="text" name="instagram" style="display:none;"><br>
+                        <input class="opciones-contacto" type="checkbox" name="telegram" onclick="revisaCheck(this);"> Telegram
+                        <input id="telegram-id" type="text" name="telegram" style="display:none;"><br>
+                        <input class="opciones-contacto" type="checkbox" name="x" onclick="revisaCheck(this);"> X
+                        <input id="x-id" type="text" name="x" style="display:none;"><br>
+                        <input class="opciones-contacto" type="checkbox" name="tiktok" onclick="revisaCheck(this);"> Tiktok
+                        <input id="tiktok-id" type="text" name="tiktok" style="display:none;"><br>
+                        <input class="opciones-contacto" type="checkbox" name="otra" onclick="revisaCheck(this);"> Otra
+                        <input id="otra-id" type="text" name="otra" style="display:none;">
+                        
+                    </div>
+                    
+
+                    <!-- <p>Contactar por 
+                        <select>
+                            <option value="">--Seleccione contacto--</option>
+                            <option value="whatsapp">Whatsapp</option>
+                            <option value="telegram">Telegram</option>
+                            <option value="x">X</option>
+                            <option value="instagram">Instagram</option>
+                            <option value="tiktok">TikTok</option>
+                            <option value="otra">Otra</option>
+                        </select>
+                    </p> -->
+                </section>
+                
+                <hr>
+                <section>
+                    <h3>Actividad</h3>
+                    <p>Día-hora inicio <input name="fechaInicio"  id="inicio" type="datetime-local" onChange="seteaFechaTermino()" required></p>
+                    <p>Día-hora término <input name="fechaTermino" id="termino" type="datetime-local" ></p>
+                    <label for="descripcion">Descripción</label>
+                    <textarea name="descripcion" cols="50" rows="10"></textarea>
+                    <p>Tema
+                        <select name="tema" id="tema" required onChange="checkeaTema()">
+                            <option value="">--Seleccione tema--</option>
+                            <option value="música"> Música</option>
+                            <option value="deporte">Deporte</option>
+                            <option value="ciencias">Ciencias</option>
+                            <option value="religión">Religión</option>
+                            <option value="política">Política</option>
+                            <option value="tecnología">Tecnología</option>
+                            <option value="juegos">Juegos</option>
+                            <option value="baile">Baile</option>
+                            <option value="comida">Comida</option>
+                            <option value="otra">Otra</option>
+                        </select>
+                        <input id="descripcion-tema" type="text" style="display: none;">
                     </p>
-                <p>Sector <input name="sector" type="text" size="100"></p>
-            </section>
-            
-            <hr>
-            <section>
-                <h3>Organizador</h3>
-                <p>Nombre <input name="nombre" type="text" required></p>
+                    
+                    <label for="fotos">Foto</label>
+                    <input class="foto" type="file" name="foto1" id="foto1-id" onchange=activaFoto(this) required accept="image/*">
+                    <input class="foto" type="file" name="foto2" id="foto2-id" onchange=activaFoto(this) style="display:none;">
+                    <input class="foto" type="file" name="foto3" id="foto3-id" onchange=activaFoto(this) style="display:none;">
+                    <input class="foto" type="file" name="foto4" id="foto4-id" onchange=activaFoto(this) style="display:none;">
+                    <input class="foto" type="file" name="foto5" id="foto5-id" onchange=activaFoto(this) style="display:none;">
+                </section>
 
-                <p>Email <input name="email" type="email" required></p>
-                <p>Nro Celular <input name="celular" type="tel"></p>
-                <p>Contactar por 
-                    <select>
-                        <option value="">--Seleccione contacto--</option>
-                        <option value="whatsapp">Whatsapp</option>
-                        <option value="telegram">Telegram</option>
-                        <option value="x">X</option>
-                        <option value="instagram">Instagram</option>
-                        <option value="tiktok">TikTok</option>
-                        <option value="otra">Otra</option>
-                    </select>
-                </p>
-            </section>
-            
-            <hr>
-            <section>
-                <h3>Actividad</h3>
-                <p>Día-hora inicio <input type="datetime-local" required></p>
-                <p>Día-hora término <input type="datetime-local"></p>
-                <label for="descripcion">Descripción</label>
-                <textarea name="descripcion" cols="50" rows="10"></textarea>
-                <p>Tema
-                    <select name="tema" required>
-                        <option value="">--Seleccione tema--</option>
-                        <option value="música"> Música</option>
-                        <option value="deporte">Deporte</option>
-                        <option value="ciencias">Ciencias</option>
-                        <option value="religión">Religión</option>
-                        <option value="política">Política</option>
-                        <option value="tecnología">Tecnología</option>
-                        <option value="juegos">Juegos</option>
-                        <option value="baile">Baile</option>
-                        <option value="comida">Comida</option>
-                        <option value="otra">Otra</option>
-                    </select>
-                </p>
-                <p>Foto <input type="file" name="foto" required></p>
-            </section>
-
-            <button> Agregar esta actividad </button>
-        </form>
+                <button id="submit-btn" type="button"> Agregar esta actividad </button>
+            </form>
+        </div>  
+        <dialog id="dialog-confirmacion">
+            <p>¿Estás seguro de que deseas agregar esta actividad?</p>
+            <button id="confirmar-envio">Sí, estoy seguro</button>
+            <button id="cancelar-envio">No, no estoy seguro, quiero volver al formulario</button>
+        </dialog>
+        <dialog id="dialog-exito">
+            <p>Hemos recibido su información, muchas gracias y suerte en su actividad</p>
+            <button id="btn-exito">Volver a la portada</button>
+        </dialog>
     </body>
+    <script>
+        const formateaFechaLocal = (fecha) => {
+                const anho = fecha.getFullYear();
+                const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+                const dia = String(fecha.getDate()).padStart(2, '0');
+                const horas = String(fecha.getHours()).padStart(2, '0');
+                const minutos = String(fecha.getMinutes()).padStart(2, '0');
+                return `${anho}-${mes}-${dia}T${horas}:${minutos}`;
+        };
+        window.addEventListener("DOMContentLoaded", () => {
+            const ahora = new Date();
+            const fechaLocal = formateaFechaLocal(ahora);
+            document.getElementById("inicio").value = fechaLocal;
+        });
+        const seteaFechaTermino = () =>{
+            const fechaInicial = new Date(document.getElementById("inicio").value);
+            const fechaTermino = new Date(fechaInicial.getTime() + 3 * 60 * 60 * 1000);
+            const terminoLocal = formateaFechaLocal(fechaTermino);
+            document.getElementById("termino").value = terminoLocal;
+        }
+    </script>
     <script lang="javascript" src="comunas-regiones.js" ></script>
+    <script lang="javascript" src="validacionForm.js" ></script>
 </html>
