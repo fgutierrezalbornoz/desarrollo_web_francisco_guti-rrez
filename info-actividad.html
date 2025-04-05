@@ -18,6 +18,10 @@
             <button onclick="window.location='./listado-actividades.html'">Volver al listado de actividades</button>
             <button onclick="window.location='./index.html'">Volver a la portada</button>
         </div>
+        <dialog id="dialog-foto">
+            <img id="foto-en-dialog" width="800" height="600" src="">
+            <button id="btn-dialog-foto"> Cerrar </button>
+        </dialog>
         <script>
             const cargaInfo = () => {
                 const actividad = JSON.parse(localStorage.getItem('actividad'));
@@ -27,11 +31,27 @@
                 document.getElementById('info-comuna').innerText = actividad.comuna;
                 document.getElementById('info-sector').innerText = actividad.sector;
                 document.getElementById('info-tema').innerText = actividad.tema;
-                document.getElementById('info-tema').innerText = actividad.tema;
                 document.getElementById('info-organizador').innerText = actividad.nombreOrganizador;
-                document.getElementById('info-fotos').innerText = actividad.totalFotos;
+                document.getElementById('info-fotos').innerHTML = actividad.totalFotos.map(foto => 
+                        ` <div id="informacion-fotos">
+                            <img id="foto-${foto.src}" src="${foto}" height=240 width=320 onclick="cambiaDimensionFoto(this)">
+                        </div>`).join('');
                 localStorage.removeItem("actividad");
             }
+            
+            
+            const dialogFoto= document.getElementById("dialog-foto");
+            const foto = document.getElementById("foto-en-dialog");
+            const btnCierraFoto = document.getElementById("btn-dialog-foto")
+            function cambiaDimensionFoto(fotoMostrada) {
+                dialogFoto.showModal();
+                foto.src = fotoMostrada.src;
+            }
+            const cierraFoto = () => {
+                foto.src = "";
+                dialogFoto.close();
+            }
+            btnCierraFoto.addEventListener("click", cierraFoto);
             window.onload = () => {
                 cargaInfo();
             };
