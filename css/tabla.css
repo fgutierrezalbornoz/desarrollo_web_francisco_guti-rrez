@@ -9,4 +9,8 @@ td, th {
 }
 td {
     text-align: center;
+    padding: 10px;
+}
+.listado-actividades{
+    margin-top: 5%;
 }

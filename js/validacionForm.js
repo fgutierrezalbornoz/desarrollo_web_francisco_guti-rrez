@@ -10,15 +10,12 @@ const btnAgregaFoto = document.getElementById("btn-agrega-foto");
 
 // funciones auxiliares
 function activaFoto(){
-    if (btnAgregaFoto.display=="none"){
-        btnAgregaFoto.display=="block";
-    }
     let nroUltimaFoto = 1
     while (nroUltimaFoto <= 5) {
         let ultimaFoto = document.getElementById(`foto${nroUltimaFoto}-id`)
         if (ultimaFoto.style.display=="none"){
             ultimaFoto.style.display="block";
-            return
+            break;
         }
         nroUltimaFoto+=1;
     } 
