@@ -1,19 +1,35 @@
+// elementos 
+
+const dialog = document.getElementById("dialog-confirmacion");
+const btnConfirmar = document.getElementById("confirmar-envio");
+const btnCancelar = document.getElementById("cancelar-envio");
+const form = document.getElementById("form-actividad");
+const dialogExito = document.getElementById("dialog-exito");
+const btnExito = document.getElementById("btn-exito");
+const btnAgregaFoto = document.getElementById("btn-agrega-foto");
+
+// funciones auxiliares
+function activaFoto(){
+    if (btnAgregaFoto.display=="none"){
+        btnAgregaFoto.display=="block";
+    }
+    let nroUltimaFoto = 1
+    while (nroUltimaFoto <= 5) {
+        let ultimaFoto = document.getElementById(`foto${nroUltimaFoto}-id`)
+        if (ultimaFoto.style.display=="none"){
+            ultimaFoto.style.display="block";
+            return
+        }
+        nroUltimaFoto+=1;
+    } 
+};
+
 function revisaCheck(element){
     if (element.checked) {
       document.getElementById(element.name+'-id').style.display = "block";
     } else {
        document.getElementById(element.name+'-id').style.display = "none";
     }
-};
-
-function activaFoto(element){
-    let nroFoto = parseInt(element.name[4],10)
-    if (nroFoto < 5) {
-        const nroNuevaFoto = nroFoto + 1
-        const nombreNuevaFoto = 'foto' + nroNuevaFoto.toString() + '-id'
-        const nuevaFoto = document.getElementById('foto' + nroNuevaFoto.toString() + '-id')
-        nuevaFoto.style.display = "block";
-    } 
 };
 
 function checkeaTema(){
@@ -25,17 +41,9 @@ function checkeaTema(){
         document.getElementById("descripcion-tema").style.display = "none";
     }
 };
-// confirmación form
-
-const dialog = document.getElementById("dialog-confirmacion");
-const btnConfirmar = document.getElementById("confirmar-envio");
-const btnCancelar = document.getElementById("cancelar-envio");
-const form = document.getElementById("form-actividad");
-const dialogExito = document.getElementById("dialog-exito");
-const btnExito = document.getElementById("btn-exito");
 
 
-
+// funciones para validar
 const validaSector = (sector) => {
     if(!sector) return true;
     let lengthValid = sector.trim().length >= 4 && sector.trim().length <= 100;
