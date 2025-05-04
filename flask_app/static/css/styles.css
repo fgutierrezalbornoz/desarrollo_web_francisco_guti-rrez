@@ -1,0 +1,140 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color:white;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    color: #10394e;
+    
+}
+.title-home{
+    text-align: center;
+}
+.btn-home{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    gap: 4px;
+    padding: 20px;
+}
+a{
+    padding: 10px;
+}
+a:hover {
+    color: white;
+    background-color: #10597d;
+    outline: 1px solid black;
+    border-radius: 5px;
+}
+
+.main-container {
+    display: flex;
+    justify-content: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 100%;
+    
+}
+.main-container > * {
+    max-width: 400px;
+}
+
+.main-container form {
+    outline: 1px solid black;
+    padding: 15px;
+    border-radius: 10px;
+}
+.container-form {
+    display: flex;
+    flex-direction: column;
+}
+form > * {
+    display: flex;
+    flex-direction: column;   
+}
+
+section > * {
+    margin: 4px;
+}
+section div input{
+    margin-top: 5px;
+    margin-left: 10px;
+}
+.container-fotos{
+    display: flex;
+    flex-flow: column;
+}
+.container-fotos input{
+    padding: 10px;
+    outline: 1px solid rgb(146, 146, 146);
+}
+.container-fotos button {
+    width: 35%;
+    margin: 10px;
+    align-self: end;
+}
+#submit-btn, #btn-exito {
+    margin: 10px;
+    width: 50%;
+    align-items: center;
+    justify-self: center;
+    background-color: #10597d;
+    border-radius: 5px;
+    color: white;
+    padding: 5px;
+}
+#submit-btn:hover, #btn-exito:hover{
+    background-color: #10394e;
+}
+body div a {
+    align-self: end;
+}
+
+#val-box {
+    background-color: #ffdddd;
+    border-left: 6px solid #f44336;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+#val-box h2 {
+    margin: 0 0 10px 0;
+    font-size: 18px;
+}
+
+#val-list {
+    padding-left: 20px;
+    margin: 0;
+    list-style-type: disc;
+    color: #a94442;
+}
+
+dialog button {
+    margin: 10px;
+    align-self: center;
+    border-radius: 5px;
+    color: white;
+    padding: 5px;
+}
+#confirmar-envio{
+    background-color: #28a745;
+}
+#confirmar-envio:hover {
+    background-color: #218838;
+}
+#cancelar-envio{
+    background-color: #d80000;
+}
+#cancelar-envio:hover{
+    background-color: #940000;
+}
+dialog{
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+#dialog-exito{
+    text-align: center;
+    border: 2px solid #218838;
+}
