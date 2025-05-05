@@ -3,29 +3,39 @@
     <head>
         <title> Tarea 1 - Información Actividad </title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <link href="../css/styles-info.css" rel="stylesheet" type="text/css">
+        <link href="{{ url_for('static', filename='css/styles-info.css') }}" rel="stylesheet" type="text/css">
+        
     </head>
     <body>
         <div class="main-container">
-            <div>
-                <p><strong>Inicio</strong>: <span id="info-inicio"></span></p>
-                <p><strong>Término</strong>: <span id="info-termino"></span></p>
-                <p><strong>Comuna</strong>: <span id="info-comuna"></span></p>
-                <p><strong>Sector</strong>: <span id="info-sector"></span></p>
-                <p><strong>Tema</strong>: <span id="info-tema"></span></p>
-                <p><strong>Nombre Organizador</strong>: <span id="info-organizador"></span></p>
-                <p><strong>Fotos</strong>: <span id="info-fotos"></span></p>
-            </div>
+            {% if actividad %}
+                <div>
+                    <p><strong>Inicio</strong>: <span id="info-inicio">{{ actividad.dia_hora_inicio | safe}}</span></p>
+                    <p><strong>Término</strong>: <span id="info-termino">{{ actividad.dia_hora_termino | safe}}</span></p>
+                    <p><strong>Comuna</strong>: <span id="info-comuna">{{ actividad.comuna.nombre }}</span></p>
+                    <p><strong>Sector</strong>: <span id="info-sector">{{ actividad.sector }}</span></p>
+                    <p><strong>Tema</strong>: <span id="info-tema">{{ actividad.actividad_tema[0].tema if actividad.actividad_tema!=[] else '' }}</span></p>
+                    <p><strong>Nombre Organizador</strong>: <span id="info-organizador">{{ actividad.nombre }}</span></p>
+                    <p><strong>Fotos</strong>: <span id="info-fotos"></span>
+                        <div class="container-fotos-actividad">
+                            {% for foto in actividad.foto %}
+                                    <img id="foto-{{foto.nombre_archivo}}" src="{{ url_for('static', filename= 'uploads/' + foto.nombre_archivo) }}" height=240 width=320 onclick="cambiaDimensionFoto(this)">
+                            {% endfor %}
+                        </div>
+                        </span>  </p>
+                </div>
+                
+            {% endif %}
             <div class="btns">
-                <button type="button" onclick="window.location='./listado-actividades.html'">Volver al listado de actividades</button>
-                <button type="button" onclick="window.location='./index.html'">Volver a la portada</button>
+                <button type="button" onclick="window.location='/activities'">Volver al listado de actividades</button>
+                <button type="button" onclick="window.location='/'">Volver a la portada</button>
             </div>
         </div>
         <dialog id="dialog-foto">
-            <img id="foto-en-dialog" width="800" height="600" src="../Graficos/barras.png" alt="Imagen agrandada">
+            <img id="foto-en-dialog" width="800" height="600" src="{{ url_for('static', filename= 'uploads/' + actividad.foto[0].nombre_archivo) }}" alt="Imagen agrandada">
             <button id="btn-dialog-foto"> Cerrar </button>
         </dialog>
         
-        <script src="../js/info-actividad.js"></script>
+        <script src="{{ url_for('static', filename='/js/info-actividad.js') }}"></script>
     </body>
 </html>
