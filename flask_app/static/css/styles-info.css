@@ -35,3 +35,39 @@ button:hover {
 .btns > p {
     width: 100%;
 }
+
+.info-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.sections-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 12px;
+}
+
+section {
+    
+    border-radius: 8px;
+    padding: 12px;
+    outline: 3px solid #10394e;
+}
+
+img {
+    outline: 3px solid #10394e;
+    border-radius: 8px;
+}
+
+.container-fotos-actividad{
+    max-width: 100%;
+    gap: 12px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+}
+
+h3 {
+    justify-self: center;
+}

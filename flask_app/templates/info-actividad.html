@@ -9,20 +9,52 @@
     <body>
         <div class="main-container">
             {% if actividad %}
-                <div>
-                    <p><strong>Inicio</strong>: <span id="info-inicio">{{ actividad.dia_hora_inicio | safe}}</span></p>
-                    <p><strong>Término</strong>: <span id="info-termino">{{ actividad.dia_hora_termino | safe}}</span></p>
-                    <p><strong>Comuna</strong>: <span id="info-comuna">{{ actividad.comuna.nombre }}</span></p>
-                    <p><strong>Sector</strong>: <span id="info-sector">{{ actividad.sector }}</span></p>
-                    <p><strong>Tema</strong>: <span id="info-tema">{{ actividad.actividad_tema[0].tema if actividad.actividad_tema!=[] else '' }}</span></p>
-                    <p><strong>Nombre Organizador</strong>: <span id="info-organizador">{{ actividad.nombre }}</span></p>
-                    <p><strong>Fotos</strong>: <span id="info-fotos"></span>
-                        <div class="container-fotos-actividad">
-                            {% for foto in actividad.foto %}
-                                    <img id="foto-{{foto.nombre_archivo}}" src="{{ url_for('static', filename= 'uploads/' + foto.nombre_archivo) }}" height=240 width=320 onclick="cambiaDimensionFoto(this)">
-                            {% endfor %}
-                        </div>
-                        </span>  </p>
+                <div class="info-container">
+                    <div class="sections-container">
+                        <section>
+                            <h3>Lugar</h3>
+                            <p><strong>Comuna</strong>: {{ actividad.comuna.nombre }}</p>
+                            <p><strong>Sector</strong>: {{ actividad.sector }}</p>
+                        </section>
+                        <section>
+                            <h3>Organizador</h3>
+                            <p><strong>Nombre</strong>: {{ actividad.nombre }}</p>
+                            <p><strong>Email</strong>: {{ actividad.email }}</p>
+                            <p><strong>Nro Celular</strong>: {{ actividad.celular }}</p>
+                            {% if actividad.contactar_por %}
+                                <div>
+                                    <p><strong>Contacto</strong>:</p>
+                                    <ul>
+                                        {% for contacto in actividad.contactar_por %}
+                                            <li>{{ contacto.nombre }}: {{ contacto.identificador }} </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% endif %}
+                        </section>
+                        <section>
+                            <h3>Actividad</h3>
+                            <p><strong>Inicio</strong>: {{ actividad.dia_hora_inicio | safe}} </p>
+                            <p><strong>Término</strong>: {{ actividad.dia_hora_termino if actividad.dia_hora_termino==None else ' - ' | safe}} </p>
+                            <p><strong>Descripción</strong>: {{ actividad.descripcion }} </p>
+                            <p><strong>Tema</strong>: {{ actividad.actividad_tema[0].tema }} 
+                            {% if actividad.actividad_tema[0].glosa_otro %}
+                                - {{ actividad.actividad_tema[0].glosa_otro }} </p>
+                            {% endif %}
+                        </section>
+                    </div>
+                    
+                        <!-- <p><strong>Inicio</strong>: <span id="info-inicio">{{ actividad.dia_hora_inicio | safe}}</span></p>
+                        <p><strong>Término</strong>: <span id="info-termino">{{ actividad.dia_hora_termino | safe}}</span></p>
+                        <p><strong>Comuna</strong>: <span id="info-comuna">{{ actividad.comuna.nombre }}</span></p>
+                        <p><strong>Sector</strong>: <span id="info-sector">{{ actividad.sector }}</span></p>
+                        <p><strong>Tema</strong>: <span id="info-tema">{{ actividad.actividad_tema[0].tema if actividad.actividad_tema!=[] else '' }}</span></p>
+                        <p><strong>Nombre Organizador</strong>: <span id="info-organizador">{{ actividad.nombre }}</span></p> -->
+                    <div class="container-fotos-actividad">
+                        {% for foto in actividad.foto %}
+                                <img id="foto-{{foto.nombre_archivo}}" src="{{ url_for('static', filename= 'uploads/' + foto.nombre_archivo) }}" height=240 width=320 onclick="cambiaDimensionFoto(this)">
+                        {% endfor %}
+                    </div>
                 </div>
                 
             {% endif %}

@@ -115,7 +115,7 @@ dialog button {
     margin: 10px;
     align-self: center;
     border-radius: 5px;
-    
+    color: white;
     padding: 5px;
 }
 #confirmar-envio{
