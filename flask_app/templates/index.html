@@ -25,6 +25,22 @@
                 </tr>
             </thead>
             <tbody>
+                {% if actividades %}
+                    {% for actividad in actividades %}
+                        <tr>
+                            <td> {{ actividad.dia_hora_inicio | safe }} </td>
+                            <td> {{ actividad.dia_hora_termino | safe }} </td>
+                            <td> {{ actividad.comuna.nombre }}</td>
+                            <td> {{ actividad.sector }}</td>
+                            <td> {{ actividad.actividad_tema[0].tema if actividad.actividad_tema!=[] else '' }} </td>
+                            <td> <img height=100 src= {{ actividad.foto[0].ruta_archivo }}> </td>
+                        </tr>
+                    {% endfor %}
+                {% endif%}
+            </tbody>
+        </table>
+    </body>
+    <!--
                 <tr>
                     <th>
                         2025-03-28 <br> 
@@ -92,8 +108,5 @@
                     <th>Alameda</th>
                     <th>Desfile personajes Disney</th>
                     <th><img height=100 src="https://static.wixstatic.com/media/a604ca_75db908403b84e7ba50114363a3e6f5c~mv2.jpg/v1/fill/w_568,h_340,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/a604ca_75db908403b84e7ba50114363a3e6f5c~mv2.jpg" alt="perro chocolo en el paris parade"></th>
-                </tr>
-            </tbody>
-        </table>
-    </body>
+                </tr> -->
 </html>
