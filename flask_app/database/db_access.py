@@ -21,19 +21,47 @@ def get_region_n(n):
     session.close()
     return regiones
 
-def get_actividades():
+def get_actividades(pagina):
+    por_pagina = 5
     session = SessionLocal()
-    actividades = session.query(Actividad).all()
+    actividades = session.query(Actividad).options(
+        joinedload(Actividad.comuna),
+        joinedload(Actividad.foto),
+        joinedload(Actividad.contactar_por),
+        joinedload(Actividad.actividad_tema)
+    ).order_by(Actividad.id.desc())\
+     .offset((pagina - 1) * por_pagina)\
+     .limit(por_pagina)\
+     .all()
     session.close()
     return actividades
 
+def get_actividades_home():
+    session = SessionLocal()
+    actividades = session.query(Actividad).options(
+        joinedload(Actividad.comuna),
+        joinedload(Actividad.foto),
+        joinedload(Actividad.contactar_por),
+        joinedload(Actividad.actividad_tema)
+        ).order_by(Actividad.id.desc()).limit(5).all()
+    session.close()
+    return actividades
+
+def get_actividad(id):
+    session = SessionLocal()
+    actividad = session.query(Actividad).options(
+        joinedload(Actividad.comuna),
+        joinedload(Actividad.foto),
+        joinedload(Actividad.contactar_por),
+        joinedload(Actividad.actividad_tema)
+        ).filter_by(id=id).first()
+    session.close()
+    return actividad
+
 def create_actividad(data):
     session = SessionLocal()
-    for clave, valor in data.items():
-        print(f"clave:{clave}, valor:{valor}")
     new_actividad = Actividad(comuna_id=data['comuna_id'], sector=data['sector'], nombre=data['nombre'], email=data['email'], celular=data['celular'], 
                               dia_hora_inicio=data['fecha_inicio'], dia_hora_termino=data['fecha_termino'], descripcion=data['descripcion'])
-    print(new_actividad)
     session.add(new_actividad)
     session.flush()
     new_actividad_tema = ActividadTema(tema=data['tema'], glosa_otro=data['descripcion_tema'], actividad_id=new_actividad.id)

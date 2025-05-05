@@ -5,6 +5,8 @@ import filetype
 from werkzeug.utils import secure_filename
 import os
 import hashlib
+from utils.utils import formateaFechaHora 
+
 
 UPLOAD_FOLDER = 'static/uploads'
 
@@ -13,21 +15,34 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1000 * 1000
 
-@app.route('/')
+@app.route('/', methods=["GET"])
 def home():
-    return render_template("index.html")
+    actividades = db_access.get_actividades_home()
+    formateaFechaHora(actividades)
+    return render_template("index.html", actividades=actividades)
 
 @app.route('/addactivity')
 def addActivity():
     return render_template("agregar-actividad.html")
 
-@app.route('/activities')
-def listActivities():
-    return render_template("listado-actividades.html")
+@app.route('/activities', methods=["GET"])
+@app.route('/activities/<pagina>', methods=["GET"])
+def listActivities(pagina=1):
+    pagina = int(pagina)
+    actividades = db_access.get_actividades(pagina)
+    formateaFechaHora(actividades)
+    for actividad in actividades:
+        actividad.n_fotos = len(actividad.foto)
+    return render_template("listado-actividades.html", actividades=actividades, pagina=pagina)
 
 @app.route('/statistics')
 def statistics():
     return render_template("estadisticas.html")
+
+@app.route('/activity/<id>', methods=["GET"])
+def get_actividad_id(id):
+    actividad = db_access.get_actividad(id)
+    return render_template("info-actividad.html", actividad=actividad)
 
 @app.route('/regiones/<n>')
 def regiones(n):
@@ -65,25 +80,17 @@ def post_actividad():
 
             # 2. save img as a file
             ruta = os.path.join(app.config["UPLOAD_FOLDER"], img_filename)
+            try:
+                data['fotos'][i].save(ruta)
+                
+            except Exception as e:
+                print(f"Error al guardar la imagen: {e}")
             data['rutas_fotos'].append({'ruta': ruta, 'nombre': img_filename})
     db_access.create_actividad(data)
 
     return redirect(url_for("home"))
 
 
-# data_test = {
-#         'region_id': 6, 'comuna_id': 60107, 'sector': '', 
-#         'nombre': 'test1', 'email': 'test1asd@gmail.com', 
-#         'celular': '', 'fecha_inicio': datetime.fromisoformat('2025-05-03T11:03'), 
-#         'fecha_termino': None, 'descripcion': '', 
-#         'tema': 'ciencias', 'descripcion_tema': '', 
-#         'fotos': ["<FileStorage: 'Quizlet-Logo-2021-present.png' ('image/png')>", 
-#                   "<FileStorage: '' ('application/octet-stream')>", 
-#                   "<FileStorage: '' ('application/octet-stream')>", 
-#                   "<FileStorage: '' ('application/octet-stream')>", 
-#                   "<FileStorage: '' ('application/octet-stream')>"]
-#                   }
-# db_access.create_actividad(data_test)
 
 if __name__ == "__main__":
     app.run(debug=True)
