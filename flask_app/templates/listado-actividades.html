@@ -9,24 +9,55 @@
             }
         </style>
         <link href="{{ url_for('static', filename='css/tabla.css') }}" rel="stylesheet" type="text/css">
-        <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ url_for('static', filename='css/styles-info.css') }}" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <table class="listado-actividades" id="listado-actividades">
-            <thead>
-                <tr>
-                    <th>Inicio</th>
-                    <th>Término</th>
-                    <th>Comuna</th>
-                    <th>Sector</th>
-                    <th>Tema</th>
-                    <th>Nombre Organizador</th>
-                    <th>Total fotos</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+        <div class="main-container">
+            <table class="listado-actividades" id="listado-actividades">
+                <thead>
+                    <tr>
+                        <th>Inicio</th>
+                        <th>Término</th>
+                        <th>Comuna</th>
+                        <th>Sector</th>
+                        <th>Tema</th>
+                        <th>Nombre Organizador</th>
+                        <th>Total fotos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if actividades %}
+                        {% for actividad in actividades %}
+                            <tr onclick="seleccionaActividad('{{ actividad.id }}')">
+                                <td> {{ actividad.dia_hora_inicio | safe }} </td>
+                                <td> {{ actividad.dia_hora_termino | safe }} </td>
+                                <td> {{ actividad.comuna.nombre }}</td>
+                                <td> {{ actividad.sector }}</td>
+                                <td> {{ actividad.actividad_tema[0].tema if actividad.actividad_tema!=[] else '' }} </td>
+                                <td> {{ actividad.nombre }} </td>
+                                <td> {{ actividad.n_fotos }} </td>
+                            </tr>
+                        {% endfor %}
+                    {% endif%}
+                </tbody>
+            </table>
+            {% if pagina %}
+                <div class="btns">
+                    <button 
+                        onclick="window.location.href='{{ url_for('listActivities', pagina=pagina|int - 1) }}'" 
+                        {% if pagina|int <= 1 %}disabled{% endif %}>
+                        Anterior
+                    </button>
+                    
+                    <p>Página {{ pagina }}</p>
+            
+                    <button 
+                        onclick="window.location.href='{{ url_for('listActivities', pagina=pagina|int + 1) }}'">
+                        Siguiente
+                    </button>
+                </div>
+            {% endif %}
+        </div>
         <script src="{{ url_for('static', filename='js/listado-actividades.js') }}"></script>
     </body>
 </html>
