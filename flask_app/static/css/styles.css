@@ -34,8 +34,8 @@ a:hover {
     padding: 20px;
     border-radius: 8px;
     width: 100%;
-    
 }
+
 .main-container > * {
     max-width: 400px;
 }
@@ -115,7 +115,7 @@ dialog button {
     margin: 10px;
     align-self: center;
     border-radius: 5px;
-    color: white;
+    
     padding: 5px;
 }
 #confirmar-envio{

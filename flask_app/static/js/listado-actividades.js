@@ -76,6 +76,9 @@ const cargaTablaActividades = () => {
         tablaActividades.appendChild(fila);
     }
 }
+const seleccionaActividad = (id) => {
+    window.location.href = `/activity/${id}`;
+};
 window.onload = () => {
-    cargaTablaActividades();
+    // cargaTablaActividades();
 }

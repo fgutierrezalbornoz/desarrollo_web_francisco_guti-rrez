@@ -28,5 +28,5 @@ const cierraFoto = () => {
 }
 btnCierraFoto.addEventListener("click", cierraFoto);
 window.onload = () => {
-    cargaInfo();
+    // cargaInfo();
 };

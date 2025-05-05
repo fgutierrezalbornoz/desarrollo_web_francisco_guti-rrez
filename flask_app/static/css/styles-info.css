@@ -31,3 +31,7 @@ button:hover {
     display: flex;
     align-items: center;
 }
+
+.btns > p {
+    width: 100%;
+}

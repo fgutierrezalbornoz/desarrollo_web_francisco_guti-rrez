@@ -32,7 +32,7 @@ function revisaCheck(element){
 function checkeaTema(){
     const element = document.getElementById("tema")
 
-    if (element.value === 'otra'){
+    if (element.value === 'otro'){
         document.getElementById("descripcion-tema").style.display = "block";
     } else{
         document.getElementById("descripcion-tema").style.display = "none";
