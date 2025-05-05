@@ -71,5 +71,9 @@ def create_actividad(data):
         new_foto = Foto(ruta_archivo=foto['ruta'], nombre_archivo=foto['nombre'], actividad_id=new_actividad.id)
         session.add(new_foto)
         session.flush()
+    for contacto in data['contactar_por']:
+        new_contacto = ContactarPor(nombre=contacto['nombre'], identificador=contacto['identificador'], actividad_id=new_actividad.id)
+        session.add(new_contacto)
+        session.flush()
     session.commit()
     session.close()

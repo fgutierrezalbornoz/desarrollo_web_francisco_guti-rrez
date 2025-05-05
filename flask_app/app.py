@@ -5,7 +5,7 @@ import filetype
 from werkzeug.utils import secure_filename
 import os
 import hashlib
-from utils.utils import formateaFechaHora 
+from utils.utils import formateaFechaHora, recuperaContacto
 
 
 UPLOAD_FOLDER = 'static/uploads'
@@ -68,6 +68,7 @@ def post_actividad():
         "fotos" : [request.files.get(f"foto{i}") for i in range(1,6)], #none
         "rutas_fotos":[]
     }
+    data = recuperaContacto(request, data)
     for i in range(5):
         if data['fotos'][i].filename != '':
             # 1. generate random name for img
