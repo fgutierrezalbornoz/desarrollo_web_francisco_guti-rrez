@@ -23,9 +23,9 @@ function activaFoto(){
 
 function revisaCheck(element){
     if (element.checked) {
-      document.getElementById(element.name+'-id').style.display = "block";
+      document.getElementById(element.name.split('_')[0]+'-id').style.display = "block";
     } else {
-       document.getElementById(element.name+'-id').style.display = "none";
+       document.getElementById(element.name.split('_')[0]+'-id').style.display = "none";
     }
 };
 
@@ -129,7 +129,7 @@ const validaContacto = () => {
     const opcionesCheck = [...document.getElementsByClassName("opciones-contacto")].filter((opcion) => opcion.checked)
     if (opcionesCheck.length > 5) return false;
     for (const opcion of opcionesCheck){
-        let valorOpcion = document.getElementById(opcion.name+"-id").value;
+        let valorOpcion = document.getElementById(opcion.name.split('_')[0]+"-id").value;
         let lengthValid = valorOpcion.trim().length>=4 && valorOpcion.trim().length<=50;
         if (!lengthValid) return false;
     }
