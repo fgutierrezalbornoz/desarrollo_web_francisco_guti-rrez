@@ -1,6 +1,6 @@
 import re
 import filetype
-import datetime
+from datetime import datetime
 from utils.utils import estructuraRequest
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp', 'avif'}
