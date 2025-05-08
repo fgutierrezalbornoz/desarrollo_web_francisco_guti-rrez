@@ -14,6 +14,15 @@
                     <h2 id="val-msg">placeholder</h2>
                     <ul id="val-list"></ul>
                 </div>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <ul class="container-msg-flash">
+                        {% for msg in messages %}
+                            <li>{{ msg }}</li>
+                        {% endfor %}
+                        </ul>
+                    {% endif %}
+                {% endwith %}
                 <form id="form-actividad" action="{{url_for('post_actividad')}}" method="post" enctype="multipart/form-data">
                     <section>
                         <h3>Lugar</h3>
