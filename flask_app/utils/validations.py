@@ -1,6 +1,7 @@
 import re
 import filetype
 import datetime
+from utils.utils import estructuraRequest
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp', 'avif'}
 ALLOWED_MIMETYPES = {"image/jpeg", "image/png", "image/gif", "image/webp", "image/avif", "image/jpg"}
@@ -10,6 +11,7 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 def validate_sector(sector):
+    if not sector: return True
     return 4 <= len(sector.strip()) <= 100
 
 def validate_name(name):
@@ -31,13 +33,14 @@ def validate_phone(phonenumber):
     return length_valid and format_valid
 
 def validate_photos(photos):
+    firstPhoto = True#si es que hay más de una foto
     for photo in photos:
         # check if a file was submitted
         if photo is None:
-            return False
+            return not firstPhoto
         # check if the browser submitted an empty file
         if photo.filename == "":
-            return False
+            return not firstPhoto
         # check file extension
         ftype_guess = filetype.guess(photo)
         if ftype_guess.extension not in ALLOWED_EXTENSIONS:
@@ -45,6 +48,7 @@ def validate_photos(photos):
         # check mimetype
         if ftype_guess.mime not in ALLOWED_MIMETYPES:
             return False
+        firstPhoto = False
     return True
 
 def validate_region(region):
@@ -90,11 +94,12 @@ def validate_contact(contacts):
         if not length_valid: return False
     return True
 
-def validator(data):
+def validator(request):
+    data = estructuraRequest(request)
     msg_error = []
-    if not validate_region(data['region']):
+    if not validate_region(data['region_id']):
         msg_error.append('Region Inválida')
-    if not validate_comuna(data['comuna']):
+    if not validate_comuna(data['comuna_id']):
         msg_error.append('Comuna Inválida')
     if not validate_sector(data['sector']):
         msg_error.append('Sector Inválido')
@@ -110,6 +115,6 @@ def validator(data):
         msg_error.append('Fecha Inválida')
     if not validate_topic(data['tema'], data['descripcion_tema']):
         msg_error.append('Tema Inválido')
-    if not validate_photos(data['photos']):
+    if not validate_photos(data['fotos']):
         msg_error.append('Foto Inválida')
     return len(msg_error)==0, msg_error
