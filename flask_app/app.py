@@ -1,19 +1,15 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 from database import db_access
-from datetime import datetime
-import filetype
-from werkzeug.utils import secure_filename
-import os
-import hashlib
-from utils.utils import formateaFechaHora, recuperaContacto
-
+from utils.utils import formateaFechaHora, guardaArchivos, formatRequest
+from utils.validations import validator
 
 UPLOAD_FOLDER = 'static/uploads'
 
 app = Flask(__name__)
 
+app.secret_key = "s3cr3t_k3y"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1000 * 1000
+app.config['MAX_CONTENT_LENGTH'] = 4 * 1000 * 1000
 
 @app.route('/', methods=["GET"])
 def home():
@@ -44,51 +40,18 @@ def get_actividad_id(id):
     actividad = db_access.get_actividad(id)
     return render_template("info-actividad.html", actividad=actividad)
 
-@app.route('/regiones/<n>')
-def regiones(n):
-    regionObj = db_access.get_region_n(n)
-    region = regionObj.nombre
-    comunas = regionObj.comunas
-    return render_template("regiones.html", region=region, comunas=comunas)
-
 @app.route("/post-activity", methods=["POST"])
 def post_actividad():
-    data = {
-        "region_id" : int(request.form.get("region")), #retorna el id
-        "comuna_id" : int(request.form.get("comuna")), #retorna el id
-        "sector" : request.form.get("sector"), #retorna un string
-        "nombre" : request.form.get("nombre"), #retorna string
-        "email" : request.form.get("email"), #string email
-        "celular" : request.form.get("celular"), #string numero
-        "fecha_inicio" : datetime.fromisoformat(request.form.get("fechaInicio")), #2025-05-03T00:45
-        "fecha_termino" : None if request.form.get("fechaTermino") == '' else datetime.fromisoformat(request.form.get("fechaTermino")),
-        "descripcion" : request.form.get("descripcion"), #string
-        "tema" : request.form.get("tema"), #string,
-        "descripcion_tema" : request.form.get("descripcion-tema"),
-        "fotos" : [request.files.get(f"foto{i}") for i in range(1,6)], #none
-        "rutas_fotos":[]
-    }
-    data = recuperaContacto(request, data)
-    for i in range(5):
-        if data['fotos'][i].filename != '':
-            # 1. generate random name for img
-            _filename = hashlib.sha256(
-                secure_filename(data['fotos'][i].filename) # nombre del archivo
-                .encode("utf-8") # encodear a bytes
-                ).hexdigest()
-            _extension = filetype.guess(data['fotos'][i]).extension
-            img_filename = f"{_filename}.{_extension}"
-
-            # 2. save img as a file
-            ruta = os.path.join(app.config["UPLOAD_FOLDER"], img_filename)
-            try:
-                data['fotos'][i].save(ruta)
-                
-            except Exception as e:
-                print(f"Error al guardar la imagen: {e}")
-            data['rutas_fotos'].append({'ruta': ruta, 'nombre': img_filename})
-    db_access.create_actividad(data)
-
+    is_valid, msg_error = validator(request) # valida los datos del formulario
+    if not is_valid: # si los datos no son válidos, se muestra un mensaje en la parte superior del formulario
+        flash(f"Error del servidor: {msg_error}")
+        return redirect(request.referrer)
+    data = formatRequest(request) # se almacena la información en un diccionario
+    data, msg_error_archivos = guardaArchivos(data, app) #se almacenan las fotos en /uploads
+    if not msg_error_archivos is None: # si hay un error al almacenar las fotos se muestra en la parte superior del formulario
+        flash(f"Error del servidor: {msg_error_archivos}")
+        return redirect(request.referrer)
+    db_access.create_actividad(data) # se almacena la info en la base de datos 
     return redirect(url_for("home"))
 
 
