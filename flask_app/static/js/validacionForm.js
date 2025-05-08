@@ -58,7 +58,7 @@ const validaEmail = (email) => {
     let lengthValid = email.length > 15 && email.length <= 100;
   
     // validamos el formato
-    let re = /^[\w.]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+    let re = /^[\w.%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
     let formatValid = re.test(email);
   
     // devolvemos la lógica AND de las validaciones.
@@ -117,7 +117,7 @@ const validaFecha = (inicio, termino) =>{
 
 const validaTema = (tema) => {
     if (!tema) return false;
-    if (tema==='otra'){
+    if (tema==='otro'){
         const descripcion = document.getElementById("descripcion-tema").value;
         let lengthValid = 3 <= descripcion.trim().length && descripcion.trim().length <= 15;
         return lengthValid;
@@ -231,7 +231,6 @@ btnCancelar.addEventListener("click", () => {
 
 btnExito.addEventListener("click", () => {
     dialogExito.close();
-    console.log(form)
     form.submit();
-    //window.location.href = "index.html";
+    // window.location.href = "index.html";
 });
