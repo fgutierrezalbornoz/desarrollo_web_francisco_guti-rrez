@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash#, jsonify
 from database import db_access
 from utils.utils import formateaFechaHora, guardaArchivos, formatRequest
 from utils.validations import validator
@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 app.secret_key = "s3cr3t_k3y"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['MAX_CONTENT_LENGTH'] = 4 * 1000 * 1000
+app.config['MAX_CONTENT_LENGTH'] = 1 * 1000 * 1000
 
 @app.route('/', methods=["GET"])
 def home():
@@ -20,6 +20,14 @@ def home():
 @app.route('/addactivity')
 def addActivity():
     return render_template("agregar-actividad.html")
+    # Para carga de regiones desde flask
+    # regiones = db_access.get_regiones()
+    # return render_template("agregar-actividad.html", regiones = regiones)
+
+# @app.route('/comunas/<int:region_id>')
+# def getComunas(region_id):
+#     comunas = db_access.get_comunas(region_id)
+#     return jsonify([{"id": c.id, "nombre": c.nombre} for c in comunas])
 
 @app.route('/activities', methods=["GET"])
 @app.route('/activities/<pagina>', methods=["GET"])

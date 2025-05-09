@@ -5,7 +5,6 @@ from sqlalchemy.orm import joinedload
 def get_comunas(region_id):
     session = SessionLocal()
     comunas = session.query(Comuna).options(joinedload(Comuna.region)).filter_by(region_id=region_id).all() #joinedload carga la info de comuna.region
-    #comunas = session.query(Comuna).filter_by(region_id=region_id).all()
     session.close()
     return comunas
 

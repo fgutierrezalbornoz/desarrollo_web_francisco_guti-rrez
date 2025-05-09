@@ -99,7 +99,7 @@ def guardaArchivos(data, app):
             img_filename = f"{_filename}.{_extension}"
 
             # 2. save img as a file
-            ruta = os.path.join(app.config["UPLOAD_FOLDER"], img_filename)
+            ruta = os.path.join(app.config["UPLOAD_FOLDER"], img_filename).replace("\\", "/")
             try:
                 data['fotos'][i].save(ruta)
                 
