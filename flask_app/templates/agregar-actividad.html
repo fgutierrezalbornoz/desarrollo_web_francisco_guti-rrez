@@ -2,7 +2,7 @@
 <html lang="es">
     <head>
         <title>
-            Tarea 1 - Agregar actividad
+            Tarea 2 - Agregar actividad
         </title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" type="text/css">
@@ -29,6 +29,11 @@
                         <label for="region-select">Región</label>
                             <select name="region" id="region-select" onChange="filtraComunas()" required>
                                 <option value="">--Escoge una región--</option>
+                                {% if regiones %}
+                                    {% for region in regiones %}
+                                        <option value="{{ region.id }}"> {{ region.nombre }}</option>
+                                    {% endfor %}
+                                {% endif %}
                             </select>
 
                         <label for="comuna-select">Comuna</label>

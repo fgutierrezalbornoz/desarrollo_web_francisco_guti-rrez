@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <title> Tarea 1 - Información Actividad </title>
+        <title> Tarea 2 - Información Actividad </title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <link href="{{ url_for('static', filename='css/styles-info.css') }}" rel="stylesheet" type="text/css">
         
@@ -44,15 +44,12 @@
                         </section>
                     </div>
                     
-                        <!-- <p><strong>Inicio</strong>: <span id="info-inicio">{{ actividad.dia_hora_inicio | safe}}</span></p>
-                        <p><strong>Término</strong>: <span id="info-termino">{{ actividad.dia_hora_termino | safe}}</span></p>
-                        <p><strong>Comuna</strong>: <span id="info-comuna">{{ actividad.comuna.nombre }}</span></p>
-                        <p><strong>Sector</strong>: <span id="info-sector">{{ actividad.sector }}</span></p>
-                        <p><strong>Tema</strong>: <span id="info-tema">{{ actividad.actividad_tema[0].tema if actividad.actividad_tema!=[] else '' }}</span></p>
-                        <p><strong>Nombre Organizador</strong>: <span id="info-organizador">{{ actividad.nombre }}</span></p> -->
                     <div class="container-fotos-actividad">
                         {% for foto in actividad.foto %}
-                                <img id="foto-{{foto.nombre_archivo}}" src="{{ url_for('static', filename= 'uploads/' + foto.nombre_archivo) }}" height=240 width=320 onclick="cambiaDimensionFoto(this)">
+                                <img id="foto-{{foto.nombre_archivo}}" 
+                                src="{{ url_for('static', filename= 'uploads/' + foto.nombre_archivo) }}"
+                                alt=" {{ foto.nombre_archivo }} "
+                                height=240 width=320 onclick="cambiaDimensionFoto(this)">
                         {% endfor %}
                     </div>
                 </div>
