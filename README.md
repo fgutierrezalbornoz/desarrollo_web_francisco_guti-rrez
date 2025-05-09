@@ -12,13 +12,15 @@ Esta tarea consiste en desarrollar el servidor que responde a las peticiones rea
 
 ### Observaciones
 
-- Es necesario ejecutar el código sql contenido en (`/flask_app/database/`): `create_user.sql`, `tarea2.sql` (aquí es necesario cambiar la línea en la cual se asignan los permisos por `GRANT ALL ON tarea2.* TO cc5002@localhost;`) y `region-comuna.sql` (en ese orden). 
+- Es necesario ejecutar el código sql contenido en (`/flask_app/database/`): `create_user.sql` (crea y le da los privilegios necesarios al usuario cc5002), `tarea2.sql` y `region-comuna.sql` (en ese orden). 
 
 - El archivo js que se encargaba de los datos del formulario y manipular las ventanas con mensajes de confirmación hace submit del formulario y esta solicitud es manejada por el endpoint /post-activity. 
 
 - Las regiones y comunas siguen siendo consultadas desde un archivo .js y no desde la base de datos, ya que no fue detallado en el enunciado de la tarea.
 
 - Habían unas discordancia con el nombre de las variables definidas en la tarea 1 y la base de datos entrega (por ejemplo, contactar_por y actividad_tema) y el case. Decidí seguir lo definido en las bases de datos.
+
+---
 
 ## Tarea 1
 Esta es la tarea 1 del curso desarrollo de aplicaciones web del DCC Uchile semestre otoño 2025. 

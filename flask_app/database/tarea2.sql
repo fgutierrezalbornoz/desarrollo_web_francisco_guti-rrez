@@ -20,7 +20,7 @@ CREATE SCHEMA IF NOT EXISTS `tarea2` DEFAULT CHARACTER SET utf8 ;
 USE `tarea2` ;
 
 -- Permiso de usuario
-GRANT ALL ON tarea2.* TO dbadmin@localhost;
+GRANT ALL ON tarea2.* TO cc5002@localhost;
 -- -----------------------------------------------------
 -- Table `tarea2`.`region`
 -- -----------------------------------------------------
