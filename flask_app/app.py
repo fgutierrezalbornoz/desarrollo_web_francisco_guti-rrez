@@ -2,8 +2,11 @@ from flask import Flask, render_template, request, redirect, url_for, flash#, js
 from database import db_access
 from utils.utils import formateaFechaHora, guardaArchivos, formatRequest
 from utils.validations import validator
+import os
 
 UPLOAD_FOLDER = 'static/uploads'
+if not os.path.exists(UPLOAD_FOLDER):
+    os.makedirs(UPLOAD_FOLDER)
 
 app = Flask(__name__)
 
