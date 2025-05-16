@@ -25,6 +25,7 @@ a:hover {
     background-color: #10597d;
     outline: 1px solid black;
     border-radius: 5px;
+    box-shadow: 0 5px 15px black;
 }
 
 .main-container {
