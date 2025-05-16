@@ -1,0 +1,39 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.container-graficos {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+.container-graficos > img {
+    height: 30vh;
+}
+.main-container {
+    justify-content: center;
+}
+a {
+    padding: 10px;
+}
+a:hover {
+    color: white;
+    background-color: #10597d;
+    border-radius: 5px;
+    box-shadow: 0 5px 15px #000;
+}
+.container-graficos img:hover {
+    transform: scale(1.05) translateY(-5px);
+    box-shadow: 0 5px 15px #10597d;
+}

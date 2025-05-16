@@ -3,16 +3,38 @@
     <head>
         <title>Tarea 2 - Estadísticas</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ url_for('static', filename='css/styles-estadisticas.css') }}" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <div>
+        <div class="main-container">
+            <div class="container-grafico-principal">
+                <img 
+                    id="grafico-principal" 
+                    src="{{ url_for('static', filename='img/lineas.png') }}" 
+                    alt="Gráfico seleccionado"
+                >
+            </div>
             <div class="container-graficos">
-                <img src="{{ url_for('static', filename='img/lineas.png') }}" alt="Gráfico de líneas que informa la cantidad de actividades por día.">
-                <img src="{{ url_for('static', filename='img/torta.png') }}" alt="Gráfico de torta que muestra el total de actividades por tipo.">
-                <img src="{{ url_for('static', filename='img/barras.png') }}" alt="Gráfico de barras que muestra tres barras por mes que indica la cantida de actividades que inician en la mañana, mediodía y por la tarde (por separado).">
+                <img 
+                    src="{{ url_for('static', filename='img/lineas.png') }}" 
+                    alt="Gráfico de líneas que informa la cantidad de actividades por día."
+                    onclick="cambiaGrafico(this)"
+                >
+                
+                <img 
+                    src="{{ url_for('static', filename='img/torta.png') }}" 
+                    alt="Gráfico de torta que muestra el total de actividades por tipo."
+                    onclick="cambiaGrafico(this)"
+                >
+                <img 
+                    src="{{ url_for('static', filename='img/barras.png') }}" 
+                    alt="Gráfico de barras que muestra tres barras por mes que indica la cantida de actividades que inician en la mañana, mediodía y por la tarde (por separado)."
+                    onclick="cambiaGrafico(this)"
+                >
             </div>
             <a href="/">Volver a la portada</a>
         </div>
+        <script src="{{ url_for('static', filename='js/estadisticas.js') }}" ></script>
     </body>
+    
 </html>
