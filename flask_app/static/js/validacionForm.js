@@ -55,7 +55,7 @@ const validaNombre = (name) => {
   
 const validaEmail = (email) => {
     if (!email) return false;
-    let lengthValid = email.length > 15 && email.length <= 100;
+    let lengthValid = email.length <= 100;
   
     // validamos el formato
     let re = /^[\w.%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/

@@ -20,7 +20,7 @@ def validate_name(name):
 
 def validate_email(email):
     if not email: return False
-    length_valid = 15 < len(email) <= 100
+    length_valid = len(email) <= 100
     pattern = r'^[\w.%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
     format_valid = re.match(pattern, email) is not None
     return length_valid and format_valid
