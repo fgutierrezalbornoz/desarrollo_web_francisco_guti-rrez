@@ -12,6 +12,8 @@ Esta tarea consiste en desarrollar el servidor que responde a las peticiones rea
 
 ### Observaciones
 
+- Inicialmente no se muestran actividades ya que lo único que está mostrado de forma estática es la sección estadísticas.
+  
 - Es necesario ejecutar el código sql contenido en (`/flask_app/database/`): `create_user.sql` (crea y le da los privilegios necesarios al usuario cc5002), `tarea2.sql` y `region-comuna.sql` (en ese orden). 
 
 - El archivo js que se encargaba de los datos del formulario y manipular las ventanas con mensajes de confirmación hace submit del formulario y esta solicitud es manejada por el endpoint /post-activity. 
