@@ -35,7 +35,7 @@
                         <section>
                             <h3>Actividad</h3>
                             <p><strong>Inicio</strong>: {{ actividad.dia_hora_inicio | safe}} </p>
-                            <p><strong>Término</strong>: {{ actividad.dia_hora_termino if actividad.dia_hora_termino==None else ' - ' | safe}} </p>
+                            <p><strong>Término</strong>: {{ actividad.dia_hora_termino if actividad.dia_hora_termino!=None else ' - ' | safe}} </p>
                             <p><strong>Descripción</strong>: {{ actividad.descripcion }} </p>
                             <p><strong>Tema</strong>: {{ actividad.actividad_tema[0].tema }} 
                             {% if actividad.actividad_tema[0].glosa_otro %}
