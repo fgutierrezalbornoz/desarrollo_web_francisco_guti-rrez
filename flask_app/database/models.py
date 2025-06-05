@@ -1,7 +1,7 @@
 from .db import Base
 from sqlalchemy import Column, BigInteger, String, ForeignKey, DateTime, Enum
 from sqlalchemy.orm import relationship
-
+from datetime import datetime
 class Region(Base):
     __tablename__ = 'region'
     id = Column(BigInteger, primary_key=True, autoincrement=True)
@@ -33,6 +33,7 @@ class Actividad(Base):
     foto = relationship("Foto", back_populates="actividad")
     contactar_por = relationship("ContactarPor", back_populates="actividad")
     actividad_tema = relationship("ActividadTema", back_populates="actividad")
+    comentario = relationship("Comentario", back_populates="actividad")
 
 class Foto(Base):
     __tablename__ = 'foto'
@@ -60,3 +61,13 @@ class ActividadTema(Base):
     actividad_id = Column(BigInteger, ForeignKey('actividad.id'), nullable=False)
     #relaciones entre tablas
     actividad = relationship("Actividad", back_populates="actividad_tema")
+
+class Comentario(Base):
+    __tablename__ = 'comentario'
+    id = Column(BigInteger, primary_key=True, autoincrement=True)
+    nombre = Column(String(80), nullable=False)
+    texto = Column(String(300), nullable=False)
+    fecha = Column(DateTime, default=datetime.now)
+    actividad_id = Column(BigInteger, ForeignKey('actividad.id'), nullable=False)
+    #relaciones entre tablas
+    actividad = relationship("Actividad", back_populates="comentario")

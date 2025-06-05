@@ -76,3 +76,11 @@ def create_actividad(data):
         session.flush()
     session.commit()
     session.close()
+
+def create_comment(nombre, comentario, actividad_id):
+    session = SessionLocal()
+    new_comment = Comentario(nombre=nombre, texto=comentario, actividad_id=actividad_id)
+    session.add(new_comment)
+    session.flush()
+    session.commit()
+    session.close()
