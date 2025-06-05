@@ -14,6 +14,7 @@ body {
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
+    gap: 30px;
 }
 button {
     margin: 10px;
@@ -77,3 +78,16 @@ img {
 h3 {
     justify-self: center;
 }
+.comentario-container-interno {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 40px;
+}
+
+
+.comentario-section form{
+    display: flex;
+    flex-flow: column wrap;
+}
+

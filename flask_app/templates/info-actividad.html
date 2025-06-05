@@ -53,6 +53,19 @@
                         {% endfor %}
                     </div>
                 </div>
+                <section class="comentario-section">
+                    <h4>Comentarios</h4>
+                    <div class="comentario-container-interno">
+                        <form id="form-comentario" action="{{url_for('post_comentario', actividad_id = actividad.id)}}" method="post" enctype="multipart/form-data">
+                            <label for="nombre">Nombre</label></br>
+                            <input name="nombre" id="nombre" type="text" required> </br>
+                            <label for="comentario">Comentario</label>
+                            <textarea name="comentario" id="comentario" cols="50" rows="4" required></textarea>                       
+                        </form>
+                        <button id="submit-comment-btn" type="button">Agregar comentario</button>
+                    </div>
+                    
+                </section>
                 
             {% endif %}
             <div class="btns">
@@ -66,5 +79,6 @@
         </dialog>
         
         <script src="{{ url_for('static', filename='/js/info-actividad.js') }}"></script>
+        <script src="{{ url_for('static', filename='/js/validacion-comentario.js') }}"></script>
     </body>
 </html>
