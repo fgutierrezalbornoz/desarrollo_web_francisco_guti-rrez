@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash#, jsonify
 from database import db_access
 from utils.utils import formateaFechaHora, guardaArchivos, formatRequest
-from utils.validations import validator
+from utils.validations import validator, validate_comment
 import os
 
 UPLOAD_FOLDER = 'static/uploads'
@@ -65,7 +65,15 @@ def post_actividad():
     db_access.create_actividad(data) # se almacena la info en la base de datos 
     return redirect(url_for("home"))
 
-
+@app.route("/post-comment/<actividad_id>", methods=["POST"])
+def post_comentario(actividad_id):
+    nombre = request.form.get("nombre")
+    comentario = request.form.get("comentario")
+    is_valid_comment = validate_comment(nombre, comentario)
+    actividad = db_access.get_actividad(actividad_id)
+    if is_valid_comment and actividad:
+        db_access.create_comment(nombre, comentario, actividad_id)
+    return redirect(url_for("get_actividad_id", actividad_id))
 
 if __name__ == "__main__":
     app.run(debug=True)

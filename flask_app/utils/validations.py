@@ -118,3 +118,9 @@ def validator(request):
     if not validate_photos(data['fotos']):
         msg_error.append('Foto Inválida')
     return len(msg_error)==0, msg_error
+
+def validate_comment(name, comment):
+    if not name or not comment: return False
+    is_valid_name = len(name.strip()) >= 3 and len(name.strip()) <= 80
+    is_valid_comment =  len(name.strip()) >= 5
+    return is_valid_name and is_valid_comment
