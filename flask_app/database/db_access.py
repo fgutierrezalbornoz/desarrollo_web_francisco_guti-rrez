@@ -20,6 +20,12 @@ def get_region_n(n):
     session.close()
     return regiones
 
+def get_todas_actividades():
+    session = SessionLocal()
+    actividades = session.query(Actividad).options(joinedload(Actividad.actividad_tema)).all()
+    session.close()
+    return actividades
+
 def get_actividades(pagina):
     por_pagina = 5
     session = SessionLocal()
@@ -84,3 +90,9 @@ def create_comment(nombre, comentario, actividad_id):
     session.flush()
     session.commit()
     session.close()
+
+def get_comments(actividad_id):
+    session = SessionLocal()
+    comentarios = session.query(Comentario).filter_by(actividad_id=actividad_id).all()
+    session.close()
+    return comentarios
