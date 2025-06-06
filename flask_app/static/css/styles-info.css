@@ -32,7 +32,6 @@ button:hover {
     display: flex;
     align-items: center;
 }
-
 .btns > p {
     width: 100%;
 }
@@ -85,7 +84,9 @@ h3 {
     gap: 40px;
 }
 
-
+.comentario-section {
+    outline: 2px solid #8b8b8b;
+}
 .comentario-section form{
     display: flex;
     flex-flow: column wrap;
