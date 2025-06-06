@@ -55,16 +55,31 @@
                 </div>
                 <section class="comentario-section">
                     <h4>Comentarios</h4>
+                    <div class="comentario-container">
+
+                    </div>
                     <div class="comentario-container-interno">
+                        <div id="val-box" hidden>
+                        <h3 id="val-msg">placeholder</h3>
+                        <ul id="val-list"></ul>
+                    </div>
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            <ul class="container-msg-flash">
+                            {% for msg in messages %}
+                                <li>{{ msg }}</li>
+                            {% endfor %}
+                            </ul>
+                        {% endif %}
+                    {% endwith %}
                         <form id="form-comentario" action="{{url_for('post_comentario', actividad_id = actividad.id)}}" method="post" enctype="multipart/form-data">
-                            <label for="nombre">Nombre</label></br>
-                            <input name="nombre" id="nombre" type="text" required> </br>
+                            <label for="nombre">Nombre</label>
+                            <input name="nombre" id="nombre" type="text" required>
                             <label for="comentario">Comentario</label>
                             <textarea name="comentario" id="comentario" cols="50" rows="4" required></textarea>                       
                         </form>
                         <button id="submit-comment-btn" type="button">Agregar comentario</button>
                     </div>
-                    
                 </section>
                 
             {% endif %}
