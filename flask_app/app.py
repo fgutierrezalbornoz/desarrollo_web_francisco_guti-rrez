@@ -1,6 +1,8 @@
-from flask import Flask, render_template, request, redirect, url_for, flash#, jsonify
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
+from flask_cors import cross_origin
 from database import db_access
 from utils.utils import formateaFechaHora, guardaArchivos, formatRequest
+from utils.estadisticas import actividades_por_dia, actividades_por_tipo, actividades_por_mes
 from utils.validations import validator, validate_comment
 import os
 
@@ -67,13 +69,35 @@ def post_actividad():
 
 @app.route("/post-comment/<actividad_id>", methods=["POST"])
 def post_comentario(actividad_id):
+    success = False
     nombre = request.form.get("nombre")
     comentario = request.form.get("comentario")
     is_valid_comment = validate_comment(nombre, comentario)
     actividad = db_access.get_actividad(actividad_id)
     if is_valid_comment and actividad:
         db_access.create_comment(nombre, comentario, actividad_id)
-    return redirect(url_for("get_actividad_id", actividad_id))
+        success = True
+    return jsonify({"success": success})
+
+@app.route("/get-comments/<actividad_id>", methods=["GET"])
+def get_comments(actividad_id):
+    comentarios = db_access.get_comments(actividad_id)
+    comentarios_json = [
+        {"nombre": c.nombre, "comentario": c.texto, "fecha": c.fecha}
+        for c in comentarios
+    ]
+    return jsonify(comentarios_json)
+
+
+@app.route("/get-stats-data", methods=["GET"])
+@cross_origin(origin="127.0.0.1", supports_credentials=True)
+def get_stats_data():
+    actividades = db_access.get_todas_actividades()
+    data1 = actividades_por_dia(actividades)
+    data2 = actividades_por_tipo(actividades)
+    data3 = actividades_por_mes(actividades)
+    data = {'linea': data1, 'torta': data2, 'barras': data3}
+    return jsonify(data)
 
 if __name__ == "__main__":
     app.run(debug=True)
