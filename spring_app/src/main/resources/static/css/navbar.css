@@ -1,0 +1,16 @@
+.navbar{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 5px;
+    background-color: #10394e;
+    color: white;
+}
+.navbar a{
+    color: white;
+}
+.navbar a:hover{
+    color: white;
+}

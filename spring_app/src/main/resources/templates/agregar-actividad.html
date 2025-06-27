@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Tarea 4 - Agrega Actividad</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+  <link rel="stylesheet" th:href="@{/css/navbar.css}">
+  <style>
+    #title, h2{
+      display: flex;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+<div class="navbar" th:replace="~{fragments/nav :: navbar}"></div>
+<h1 id="title"> Formulario de nueva actividad </h1>
+<h2> implementado en Flask </h2>
+</body>
+</html>
