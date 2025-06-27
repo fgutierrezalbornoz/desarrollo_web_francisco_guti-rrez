@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Tarea 4 - Listado de actividades</title>
+        <link rel="stylesheet" th:href="@{/css/tabla.css}">
+        <link rel="stylesheet" th:href="@{/css/styles.css}">
+        <link rel="stylesheet" th:href="@{/css/navbar.css}">
+        <style>
+            #title{
+                display: flex;
+                justify-content: center;
+            }
+            .eval-a{
+                text-decoration: underline;
+            }
+            .eval-a:hover{
+                color: revert;
+                background-color: revert;
+                outline: revert;
+                border-radius: revert;
+                box-shadow: revert;
+                cursor: pointer;
+                text-decoration: underline;
+            }
+            .form-eval{
+                display: flex;
+                flex-flow: row nowrap;
+                align-items: center;
+                gap: 8px;
+            }
+            #nota{
+                width: 135px;
+                height: fit-content;
+            }
+            #btnEvaluar {
+                width: fit-content;
+                background-color: #10597d;
+                border-radius: 5px;
+                color: white;
+                padding: 5px;
+                margin: 4px;
+            }
+            #btnEvaluar:hover{
+                background-color: #10394e;
+            }
+            #btnCancelar{
+                background-color: #d80000;
+            }
+            #btnCancelar:hover{
+                background-color: #940000;
+            }
+            .modal-contenido{
+                color: #10394e;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="navbar" th:replace="~{fragments/nav :: navbar}"></div>
+        <h1 id = "title">Evaluación de actividades</h1>
+        <p th:if="${#lists.isEmpty(actividades)}">No hay actividades disponibles.</p>
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Fecha Inicio</th>
+                <th>Sector</th>
+                <th>Nombre</th>
+                <th>Tema</th>
+                <th>Nota</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody class="listado-actividades" id="listado-actividades">
+                <tr th:each="actividad : ${actividades}" >
+                    <td th:text="${actividad.id}"></td>
+                    <td th:text="${actividad.diaHoraInicio.toLocalDate()}"></td>
+                    <td th:text="${actividad.sector}"></td>
+                    <td th:text="${actividad.nombre}"></td>
+                    <td th:text="${actividad.tema.tema}"></td>
+                    <td th:text="${actividad.notaPromedio ?: '-'}"></td>
+                    <td><a class="eval-a" onclick="abrirModal(this)" th:data-id="${actividad.id}">Evaluar</a></td>
+                </tr>
+            </tbody>
+        </table>
+        <dialog id="modalEvaluar" class="modal">
+            <div class="modal-contenido">
+                <section>
+                    <h2>Información de la actividad</h2>
+                    <div id="info-actividad"></div>
+                </section>
+                <hr>
+                <section>
+                    <h3>Evaluar Actividad</h3>
+                    <p id="msg" style="display: none"></p>
+                    <form class="form-eval">
+                        <input type="number" name="nota"
+                               id="nota" min="1" max="7"
+                               step="1" placeholder="Ingrese la nota (1-7)">
+                        <button id="btnEvaluar" type="button">Evaluar</button>
+                        <button id="btnCancelar">Cancelar</button>
+                    </form>
+
+                </section>
+
+            </div>
+        </dialog>
+        <script th:src="@{/js/evaluar.js}"></script>
+    </body>
+</html>
