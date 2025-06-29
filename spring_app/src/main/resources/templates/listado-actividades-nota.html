@@ -53,36 +53,46 @@
             .modal-contenido{
                 color: #10394e;
             }
+            .btns-pgs {
+                display: flex;
+                flex-flow: row nowrap;
+                align-items: center;
+                width: fit-content;
+                margin: 0 auto;
+                gap: 10px;
+            }
+            .btns-pgs > button {
+                background-color: #10597d;
+                border-radius: 5px;
+                color: white;
+                padding: 4px;
+            }
+            button:disabled {
+                background-color: gray;
+                cursor: not-allowed;
+            }
+            .btns-pgs > button:hover {
+                background-color: #10394e;
+            }
+            button:disabled:hover {
+                background-color: gray;
+                cursor: not-allowed;
+            }
+            .btns-pgs > p {
+                width: 100%;
+            }
         </style>
     </head>
     <body>
         <div class="navbar" th:replace="~{fragments/nav :: navbar}"></div>
         <h1 id = "title">Evaluación de actividades</h1>
-        <p th:if="${#lists.isEmpty(actividades)}">No hay actividades disponibles.</p>
-        <table>
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Fecha Inicio</th>
-                <th>Sector</th>
-                <th>Nombre</th>
-                <th>Tema</th>
-                <th>Nota</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody class="listado-actividades" id="listado-actividades">
-                <tr th:each="actividad : ${actividades}" >
-                    <td th:text="${actividad.id}"></td>
-                    <td th:text="${actividad.diaHoraInicio.toLocalDate()}"></td>
-                    <td th:text="${actividad.sector}"></td>
-                    <td th:text="${actividad.nombre}"></td>
-                    <td th:text="${actividad.tema.tema}"></td>
-                    <td th:text="${actividad.notaPromedio ?: '-'}"></td>
-                    <td><a class="eval-a" onclick="abrirModal(this)" th:data-id="${actividad.id}">Evaluar</a></td>
-                </tr>
-            </tbody>
-        </table>
+        <div id="activitiesContainer" th:replace="~{fragments/actividades :: listaActividades(${actividades})}" th:attr="data-ultima=${ultima}"></div>
+        <div class="btns-pgs">
+            <button id="prevBtn" th:disabled="${pagina <= 1}">Anterior</button>
+            <p>Página <span id="pageNumber" th:text="${pagina}">1</span></p>
+            <button id="nextBtn">Siguiente</button>
+        </div>
+
         <dialog id="modalEvaluar" class="modal">
             <div class="modal-contenido">
                 <section>
@@ -100,11 +110,10 @@
                         <button id="btnEvaluar" type="button">Evaluar</button>
                         <button id="btnCancelar">Cancelar</button>
                     </form>
-
                 </section>
-
             </div>
         </dialog>
         <script th:src="@{/js/evaluar.js}"></script>
+        <script th:src="@{/js/listaEvaluarActividades.js}"></script>
     </body>
 </html>

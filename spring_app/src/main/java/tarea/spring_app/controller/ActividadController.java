@@ -27,7 +27,7 @@ public class ActividadController {
     private NotaService notaService;
 
     @ResponseBody
-    @GetMapping("/activities/retrieve")
+    @GetMapping("/activities/all")
     @Transactional(readOnly = true)
     public List<Actividad> getAll(){
         return actividadService.getAll();
@@ -43,16 +43,9 @@ public class ActividadController {
         return "agregar-actividad";
     }
 
-    @GetMapping("/activities/evaluate")
-    @Transactional(readOnly = true)
-    public String getAllActivities(Model model){
-        List<Actividad> actividades = actividadService.getAll();
-        model.addAttribute("actividades", actividades);
-        return "listado-actividades-nota";
-    }
     @GetMapping("/activity/{id}")
     @Transactional(readOnly = true)
-    public ResponseEntity<Actividad> getById(@PathVariable Long id){
+    public ResponseEntity<Actividad> getById(@PathVariable Integer id){
         Actividad actividad = actividadService.getById(id);
         return actividad != null ? ResponseEntity.ok(actividad) : ResponseEntity.notFound().build();
     }
@@ -67,5 +60,31 @@ public class ActividadController {
         }
 
         return "ok";
+    }
+
+    @GetMapping("/activities/{nPage}")
+    @Transactional(readOnly = true)
+    public ResponseEntity<List<Actividad>> activityByPage(Model model, @PathVariable Integer nPage){
+        int pageSize = 10;
+        List<Actividad> modelData = actividadService.getActivitiesData(nPage, pageSize);
+        return modelData != null ? ResponseEntity.ok(modelData) : ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/activities/evaluate")
+    public String listActivities(
+            @RequestParam(defaultValue = "1") int nPage,
+            Model model,
+            @RequestHeader(value = "X-Requested-With", required = false) String requestedWith) {
+        int pageSize = 10;
+        List<Actividad> actividades = actividadService.getActivitiesData(nPage, pageSize);
+        model.addAttribute("actividades", actividades);
+        model.addAttribute("pagina", nPage);
+        model.addAttribute("ultima", actividades.size() < pageSize);
+
+        if ("XMLHttpRequest".equals(requestedWith)) {
+            return "fragments/actividades :: listaActividades";
+        }
+
+        return "listado-actividades-nota";
     }
 }
