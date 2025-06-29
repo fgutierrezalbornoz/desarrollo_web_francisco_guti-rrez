@@ -23,9 +23,9 @@ public class NotaService {
 
     public void validateScore (Map<String, Object> data) throws Exception{
         String actividadIdStr = String.valueOf(data.get("actividadId"));
-        Long actividadId;
+        Integer actividadId;
         try {
-            actividadId = Long.parseLong(actividadIdStr);
+            actividadId = Integer.parseInt(actividadIdStr);
         } catch (NumberFormatException e) {
             throw new Exception("El ID de actividad debe ser un número válido");
         }

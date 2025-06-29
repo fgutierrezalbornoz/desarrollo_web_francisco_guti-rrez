@@ -1,5 +1,7 @@
 package tarea.spring_app.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,16 +16,8 @@ import java.util.Optional;
  * @author fgutierrez - @since 20-06-2025
  */
 
-public interface ActividadRepository extends JpaRepository<Actividad, Long> {
-    @Query("SELECT DISTINCT a FROM Actividad a " +
-            "LEFT JOIN FETCH a.tema t ")
-    List<Actividad> findAllWithTemas();
+public interface ActividadRepository extends JpaRepository<Actividad, Integer> {
 
-    @Query("SELECT a FROM Actividad a " +
-            "LEFT JOIN FETCH a.tema t " +
-            "WHERE a.id = :id")
-    Optional<Actividad> findByIdWithTema(@Param("id") Long id);
-
-
+    Page<Actividad> findAllByOrderByIdDesc(Pageable pageable);
 
 }

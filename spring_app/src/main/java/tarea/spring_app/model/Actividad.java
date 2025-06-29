@@ -12,16 +12,14 @@ import java.util.List;
 public class Actividad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="comuna_id", nullable = false)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "actividades"})
     private Comuna comuna;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id", referencedColumnName = "actividad_id", insertable = false, updatable = false)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @Transient
     private Tema tema;
 
     @Transient
@@ -52,11 +50,11 @@ public class Actividad {
 
     public Tema getTema() { return tema; }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -128,4 +126,5 @@ public class Actividad {
 
     public void setNotaPromedio(Double notaPromedio) { this.notaPromedio = notaPromedio; }
 
+    public void setTema(Tema tema) { this.tema = tema; }
 }

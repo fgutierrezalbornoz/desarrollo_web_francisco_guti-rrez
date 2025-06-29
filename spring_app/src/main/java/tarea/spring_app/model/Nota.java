@@ -16,25 +16,25 @@ import java.util.List;
 public class Nota {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(nullable = false)
     private Integer nota;
 
     @Column(nullable = false)
-    private Long actividadId;
+    private Integer actividadId;
 
-    public Nota(Long actividadId, int nota) {
+    public Nota(Integer actividadId, int nota) {
         this.actividadId = actividadId;
         this.nota = nota;
     }
     public Nota(){}
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

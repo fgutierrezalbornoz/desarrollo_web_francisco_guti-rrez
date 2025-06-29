@@ -14,8 +14,9 @@ import java.util.List;
 @Entity
 @Table(name = "comuna")
 public class Comuna {
-    @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     @Column(length = 200, nullable = false)
     private String nombre;
@@ -25,16 +26,15 @@ public class Comuna {
     private List<Actividad> actividades;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "region_id", nullable = false)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "comunas"})
     private Region region;
 
     // Getters y Setters
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

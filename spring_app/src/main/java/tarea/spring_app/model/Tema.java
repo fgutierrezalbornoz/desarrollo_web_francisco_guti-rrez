@@ -17,10 +17,10 @@ import java.util.List;
 public class Tema {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(name = "actividad_id")
-    private Long actividadId;
+    private Integer actividadId;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -37,11 +37,11 @@ public class Tema {
         this.tema = tema;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

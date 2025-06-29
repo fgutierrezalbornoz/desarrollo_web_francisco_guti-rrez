@@ -15,7 +15,7 @@ import java.util.List;
 public class Region {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(length = 200, nullable = false)
     private String nombre;
@@ -25,11 +25,11 @@ public class Region {
     private List<Comuna> comunas;
 
     // Getters y Setters
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
