@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title> Tarea 2 - Portada </title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href="{{ url_for('static', filename='css/tabla.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <h1 class="title-home"> Actividades Recreativas App</h1>
+        <div class="btn-home">
+            <a href="/addactivity"> Agregar actividad </a> <br>
+            <a href="/activities"> Ver listado de actividades </a> <br>
+            <a href="/statistics"> Estadísticas </a>
+        </div>
+        <table class="table-home">
+            <thead>
+                <tr>
+                    <th>Inicio</th>
+                    <th>Término</th>
+                    <th>Comuna</th>
+                    <th>Sector</th>
+                    <th>Tema</th>
+                    <th>Foto</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if actividades %}
+                    {% for actividad in actividades %}
+                        <tr>
+                            <td> {{ actividad.dia_hora_inicio | safe }} </td>
+                            <td> {{ actividad.dia_hora_termino | safe }} </td>
+                            <td> {{ actividad.comuna.nombre }}</td>
+                            <td> {{ actividad.sector }}</td>
+                            <td> {{ actividad.actividad_tema[0].tema if actividad.actividad_tema!=[] else '' }} </td>
+                            <td> <img height=100 src= {{ actividad.foto[0].ruta_archivo }} alt=" {{ actividad.comuna.nombre }} - {{ actividad.sector }}"> </td>
+                        </tr>
+                    {% endfor %}
+                {% endif%}
+            </tbody>
+        </table>
+    </body>
+</html>

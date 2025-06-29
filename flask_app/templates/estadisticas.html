@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>Tarea 2 - Estadísticas</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href="{{ url_for('static', filename='css/styles-estadisticas.css') }}" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <div class="main-container">
+            <div class="container-grafico-principal">
+                <figure class="highcharts-figure">
+                    <div id="container"></div>
+                    <p id="highcharts-description">
+                        Gráfico de líneas que informa la cantidad de actividades por día.
+                    </p>
+                </figure>
+            </div>
+            <div class="container-graficos">
+                <div id="container-por-dia" onclick="renderActividadesPorDia('container')"></div>
+                <div id="container-por-tipo" onclick="renderActividadesPorTipo('container')"></div>
+                <div id="container-por-mes" onclick="renderActividadesPorMes('container')"></div>
+            </div>
+            <a href="/">Volver a la portada</a>
+        </div>
+        
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="{{ url_for('static', filename='js/estadisticas.js') }}" ></script>
+    </body>
+    
+</html>

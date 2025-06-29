@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title> Tarea 2 - Información Actividad </title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href="{{ url_for('static', filename='css/styles-info.css') }}" rel="stylesheet" type="text/css">
+        
+    </head>
+    <body>
+        <div class="main-container">
+            {% if actividad %}
+                <div class="info-container">
+                    <div class="sections-container">
+                        <section>
+                            <h3>Lugar</h3>
+                            <p><strong>Comuna</strong>: {{ actividad.comuna.nombre }}</p>
+                            <p><strong>Sector</strong>: {{ actividad.sector }}</p>
+                        </section>
+                        <section>
+                            <h3>Organizador</h3>
+                            <p><strong>Nombre</strong>: {{ actividad.nombre }}</p>
+                            <p><strong>Email</strong>: {{ actividad.email }}</p>
+                            <p><strong>Nro Celular</strong>: {{ actividad.celular }}</p>
+                            {% if actividad.contactar_por %}
+                                <div>
+                                    <p><strong>Contacto</strong>:</p>
+                                    <ul>
+                                        {% for contacto in actividad.contactar_por %}
+                                            <li>{{ contacto.nombre }}: {{ contacto.identificador }} </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% endif %}
+                        </section>
+                        <section>
+                            <h3>Actividad</h3>
+                            <p><strong>Inicio</strong>: {{ actividad.dia_hora_inicio | safe}} </p>
+                            <p><strong>Término</strong>: {{ actividad.dia_hora_termino if actividad.dia_hora_termino!=None else ' - ' | safe}} </p>
+                            <p><strong>Descripción</strong>: {{ actividad.descripcion }} </p>
+                            <p><strong>Tema</strong>: {{ actividad.actividad_tema[0].tema }} 
+                            {% if actividad.actividad_tema[0].glosa_otro %}
+                                - {{ actividad.actividad_tema[0].glosa_otro }} </p>
+                            {% endif %}
+                        </section>
+                    </div>
+                    
+                    <div class="container-fotos-actividad">
+                        {% for foto in actividad.foto %}
+                                <img id="foto-{{foto.nombre_archivo}}" 
+                                src="{{ url_for('static', filename= 'uploads/' + foto.nombre_archivo) }}"
+                                alt=" {{ foto.nombre_archivo }} "
+                                height=240 width=320 onclick="cambiaDimensionFoto(this)">
+                        {% endfor %}
+                    </div>
+                </div>
+                <section class="comentario-section">
+                    <h4>Comentarios</h4>
+                    <div class="comentario-container">
+
+                    </div>
+                    <div class="comentario-container-interno">
+                        <div id="val-box" hidden>
+                        <h3 id="val-msg">placeholder</h3>
+                        <ul id="val-list"></ul>
+                    </div>
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            <ul class="container-msg-flash">
+                            {% for msg in messages %}
+                                <li>{{ msg }}</li>
+                            {% endfor %}
+                            </ul>
+                        {% endif %}
+                    {% endwith %}
+                        <form id="form-comentario" action="{{url_for('post_comentario', actividad_id = actividad.id)}}" method="post" enctype="multipart/form-data">
+                            <label for="nombre">Nombre</label>
+                            <input name="nombre" id="nombre" type="text" required>
+                            <label for="comentario">Comentario</label>
+                            <textarea name="comentario" id="comentario" cols="50" rows="4" required></textarea>                       
+                        </form>
+                        <button id="submit-comment-btn" type="button">Agregar comentario</button>
+                    </div>
+                </section>
+                
+            {% endif %}
+            <div class="btns">
+                <button type="button" onclick="window.location='/activities'">Volver al listado de actividades</button>
+                <button type="button" onclick="window.location='/'">Volver a la portada</button>
+            </div>
+        </div>
+        <dialog id="dialog-foto">
+            <img id="foto-en-dialog" width="800" height="600" src="{{ url_for('static', filename= 'uploads/' + actividad.foto[0].nombre_archivo) }}" alt="Imagen agrandada">
+            <button id="btn-dialog-foto"> Cerrar </button>
+        </dialog>
+        
+        <script src="{{ url_for('static', filename='/js/info-actividad.js') }}"></script>
+        <script src="{{ url_for('static', filename='/js/validacion-comentario.js') }}"></script>
+    </body>
+</html>
