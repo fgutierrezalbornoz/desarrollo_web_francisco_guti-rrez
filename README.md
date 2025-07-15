@@ -1,4 +1,31 @@
 # desarrollo_web_francisco_guti-rrez
+
+## Tarea 4
+Esta tarea consiste en implementar funcionalidades en Spring Boot y Thymeleaf.
+
+Se reeimplementó el esqueleto de las tareas pasadas y se puede acceder a las distintas secciones anteriormente definidas. En las funcionalidades implementadas con Flask, solo se muestra un html con un mensaje de que esa sección ya fue implementada en Flask.
+
+### Evaluación de actividad
+A esta sección se puede acceder mediante el link `Evaluar actividad` que se encuentra en la parte superior (navbar implementado con fragmentos) y redirecciona a una pantalla que muestra el html `listado-actividades-nota.html`. En este, se listan las actividades desde la más reciente a la menos reciente con información según el enunciado y con un link de evaluar. Al clickear en el link, se despliega un modal con información un poco más detallada de la actividad a evaluar y un pequeño formulario con un input para ingresar la nota que el usuario quiera entregar. 
+
+La validación en frontend se realiza utilizando el script `evaluar.js` (que la nota sea un número entero entre 1 y 7 ambos incluidos). Al terminar la evaluación se genera una petición AJAX que actualiza la nota en lista.
+
+Del lado del servidor la petición se realiza al endpoint `/post-eval-activity` y es manejada por `ActividadController` quien utiliza el servicio `NotaService` para realizar la validación del lado del servidor.
+
+### Implementaciones necesarias
+
+Para atender las solicitudes se definieron modelos asociados a actividad, comuna, nota, region, tema y temaenum en la carpeta `model`. 
+
+Además, se definieron las interfaces para actividad, nota y tema en `repository`, en el contrato se definieron querys específicas para métodos asociados ya que así me resultó más sencillo que probar con distintos métodos definidos por defecto en JPA. 
+
+En la carpeta `service` se definen los servicios asociados a actividad y nota que son utilizados por los controllers definidos en la carpeta `controller`. 
+
+Se definieron 3 controllers, `ActividadController` que manejan las solicitudes necesarias para implementar las funcionalidades pedidas, `AppController` que maneja las solicitudes para renderizar las secciones que no están directamente relacionadas a esta tarea y `NotFoundController` para manejar solicitudes a direcciones no definidas.
+
+### Rutas adicionales
+Se definieron 3 rutas adicionales para debbuging `/activity/{id}`, `/activities/{nPage}` y `/activities/all`, principalmente para entender cómo se retornaba la información.
+
+---
 ## Tarea 3
 Esta tarea consiste en implementar AJAX en algunas consultas realizadas al servidor. 
 ### Comentarios

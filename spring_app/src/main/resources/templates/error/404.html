@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>404 - Página no encontrada</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <style>
+        .error-container {
+            text-align: center;
+            padding: 50px;
+        }
+        .error-code {
+            font-size: 72px;
+            color: #e74c3c;
+        }
+        .error-message {
+            font-size: 24px;
+            margin: 20px 0;
+        }
+        .home-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="navbar" th:replace="~{fragments/nav :: navbar}"></div>
+<div class="error-container">
+    <div class="error-code">404</div>
+    <div class="error-message">¡Oops! Página no encontrada</div>
+    <a href="/" class="home-link">Volver al inicio</a>
+</div>
+</body>
+</html>
